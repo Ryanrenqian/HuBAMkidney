@@ -1,0 +1,65 @@
+criterions:
+  PerformanceLoss:
+    def_file: ./loss/SoftDiceLoss.py
+    loss_params: {}
+    optim_params: null
+    weight: 0.2
+  BCELoss:
+    def_file: ./loss/BCELoss.py
+    loss_params: {}
+    optim_params: null
+    weight: 0.8
+last: false
+model_dir: null
+networks:
+  model:
+    def_file: ./models/fcn_resnet50.py
+    fix: false
+    optimizer: adamW
+    optim_params: {lr: 1e-4, momentum: 0.9, weight_decay: 1e-3}
+    scheduler_params: {}
+    params: {log_dir: 'logs/baseline/model_best.pth'}
+shuffle: false
+training_opt:
+  phase: train
+  strategy: 'keep1wsi'
+  backbone: fcn-resnet50
+  batch_size: 32
+  datasets: HuBMAP
+  display_step: 10
+  display_grad: False
+  display_grad_step: 10
+  num_epochs: 15
+  num_workers: 10
+  sampler: null
+  log_dir: './logs/baseline'
+  window: 1024
+  overlap: 32
+  resize: 512
+  transform: default
+  cache_dir: '/root/share/hubmap-kidney-segmentation/train/1024_32'
+val_opt:
+  phase: val
+  batch_size: 64
+  datasets: HuBMAP
+  num_workers: 12
+  sampler: null
+  log_dir: './logs/baseline/val'
+  window: 1024
+  overlap: 32
+  resize: 256
+  transform: 'val'
+  # cache_dir: null
+  cache_dir: '/root/share/hubmap-kidney-segmentation/train/1024_32_val'
+testting_opt:
+  phase: test
+  batch_size: 64
+  datasets: HuBMAP
+  window: 1024
+  overlap: 32
+  resize: 256
+  num_workers: 12
+  transform: 'test'
+  sampler: null
+  cache_dir: '/root/share/hubmap-kidney-segmentation/test/1024_32'
+  log_dir: './logs/baseline/test'

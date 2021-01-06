@@ -1,0 +1,56 @@
+criterions:
+  PerformanceLoss:
+    def_file: ./loss/SoftDiceLoss.py
+    loss_params: {}
+    optim_params: null
+    weight: 1.0
+last: false
+model_dir: null
+networks:
+  model:
+    def_file: ./models/fcn_resnet50.py
+    fix: false
+    optimizer: sgd
+    optim_params: {lr: 0.2, momentum: 0.9, weight_decay: 0.0005}
+    scheduler_params: {coslr: true, endlr: 0.0, gamma: 0.1, step_size: 30}
+    params: {}
+shuffle: false
+training_opt:
+  phase: randomn_split
+  backbone: fcn-resnet34
+  batch_size: 128
+  datasets: HuBMAP
+  display_step: 10
+  display_grad: False
+  display_grad_step: 10
+  num_epochs: 90
+  num_workers: 12
+  sampler: null
+  log_dir: './logs/fcn1221'
+  window: 512
+  overlap: 128
+  transform: default
+  cache_dir: null
+  # cache_dir: '~/share/hubmap-kidney-segmentation/train/512tiles'
+val_opt:
+  phase: val
+  batch_size: 128
+  datasets: HuBMAP
+  num_workers: 12
+  sampler: null
+  log_dir: './logs/fcn1221/val'
+  window: 512
+  overlap: 128
+  transform: default
+  cache_dir: null
+testting_opt:
+  phase: test
+  batch_size: 128
+  datasets: HuBMAP
+  window: 512
+  overlap: 128
+  num_workers: 12
+  transform: default
+  sampler: null
+  cache_dir: null
+  log_dir: './logs/fcn1221/test'

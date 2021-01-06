@@ -1,0 +1,62 @@
+criterions:
+  PerformanceLoss:
+    def_file: ./loss/SoftDiceLoss.py
+    loss_params: {}
+    optim_params: null
+    weight: 0.2
+  BCELoss:
+    def_file: ./loss/BCELoss.py
+    loss_params: {}
+    optim_params: null
+    weight: 0.8
+last: false
+model_dir: null
+networks:
+  model:
+    def_file: ./models/fcn_resnet50.py
+    fix: false
+    optimizer: adam
+    optim_params: {lr: 0.02, momentum: 0.9, weight_decay: 0.0003}
+    scheduler_params: {coslr: true, endlr: 0.0, gamma: 0.1, step_size: 30, }
+    params: {log_dir: './logs/fcn1223'}
+shuffle: false
+training_opt:
+  phase: randomn_split
+  backbone: fcn-resnet34
+  batch_size: 16
+  datasets: HuBMAP
+  display_step: 10
+  display_grad: False
+  display_grad_step: 10
+  num_epochs: 15
+  num_workers: 10
+  sampler: null
+  log_dir: './logs/fcn1223'
+  window: 512
+  overlap: 128
+  transform: default
+  cache_dir: null
+val_opt:
+  phase: val
+  batch_size: 32
+  datasets: HuBMAP
+  num_workers: 12
+  sampler: null
+  log_dir: './logs/fcn1223/val'
+  window: 512
+  overlap: 128
+  resize: 512
+  transform: 'val'
+  cache_dir: null
+testting_opt:
+  phase: test
+  batch_size: 32
+  datasets: HuBMAP
+  window: 512
+  overlap: 128
+  resize: 512
+  num_workers: 12
+  transform: 'test'
+  sampler: null
+  cache_dir: null
+  log_dir: './logs/fcn1223/test'
